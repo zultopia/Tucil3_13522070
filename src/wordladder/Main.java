@@ -47,10 +47,10 @@ public class Main {
         System.out.print("Choose algorithm (1-UCS, 2-GBFS, 3-A*): ");
         int algoChoice = scanner.nextInt();
 
-        long startTime = System.currentTimeMillis();
-        List<String> path = new ArrayList<>();
+        List<String> path = null;
         int nodesVisited = 0;
-
+        long startTime = System.currentTimeMillis();
+        
         switch (algoChoice) {
             case 1:
                 UCS ucs = new UCS(dictionary);
@@ -77,6 +77,11 @@ public class Main {
 
         long endTime = System.currentTimeMillis();
         long executionTime = endTime - startTime;
+
+        if (path == null || path.isEmpty()) {
+            System.out.println("No path solution found.");
+            return;
+        }
 
         System.out.println("Path: " + path);
         System.out.println("Nodes visited: " + nodesVisited);
