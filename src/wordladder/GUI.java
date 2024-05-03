@@ -1,100 +1,121 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
-import javafx.geometry.Insets;
+import javafx.geometry.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import java.util.*;
-import java.io.*;
 
 public class GUI extends Application {
 
-    private ComboBox<String> navigationDropdown;
-
     @Override
     public void start(Stage primaryStage) {
-        navigationDropdown = createNavigationDropdown(primaryStage);  
-    
-        Scene homeScene = createHomeScene();  
-        Scene gameScene = createGameScene();
-    
-        setupNavigationLogic(primaryStage, homeScene, gameScene);
-    
-        primaryStage.setTitle("WordLadder");
-        primaryStage.setScene(homeScene);  
-        primaryStage.show();  
-    }
+        VBox mainLayout = new VBox(20);  
+        mainLayout.setPadding(new Insets(20, 20, 20, 20));  
+        mainLayout.setAlignment(Pos.TOP_CENTER); 
 
-    private ComboBox<String> createNavigationDropdown(Stage primaryStage) {
-        ComboBox<String> dropdown = new ComboBox<>();
-        dropdown.getItems().addAll("Home", "Game", "How to Use", "Algorithm", "About Me");
-        dropdown.setPromptText("Navigate");
-        return dropdown;
-    }
+        // Header
+        ImageView headerImage = new ImageView(new Image("images/wordazul.png"));
+        headerImage.setFitWidth(400); 
+        headerImage.setPreserveRatio(true);  
+        mainLayout.getChildren().add(headerImage);  
 
-    private Scene createHomeScene() {
-        BorderPane homeLayout = new BorderPane(); 
-        homeLayout.setPadding(new Insets(20, 20, 20, 20));
-    
-        homeLayout.setTop(navigationDropdown);  
-        homeLayout.setCenter(new Label("Welcome to WordLadder!"));  
-    
-        applyGradientBackground(homeLayout);  
-        return new Scene(homeLayout, 600, 400); 
-    }
+        Label welcomeLabel = new Label("Selamat Datang di WordAzul!");
+        welcomeLabel.setFont(Font.font("Monospace", FontWeight.BOLD, 24));  
+        mainLayout.getChildren().add(welcomeLabel);
 
-    private void setupNavigationLogic(Stage primaryStage, Scene homeScene, Scene gameScene) {
-        navigationDropdown.setOnAction(event -> {
-            String selected = navigationDropdown.getValue();  
-            switch (selected) {
-                case "Home":
-                    primaryStage.setScene(homeScene);  
-                    break;
-                case "Game":
-                    primaryStage.setScene(gameScene); 
-                    break;
-                case "How to Use":
-                    Scene howToUseScene = createHowToUseScene();  
-                    primaryStage.setScene(howToUseScene);  
-                    break;
-                case "Algorithm":
-                    Scene algorithmScene = createAlgorithmScene();  
-                    primaryStage.setScene(algorithmScene);  
-                    break;
-                case "About Me":
-                    Scene aboutMeScene = createAboutMeScene();  
-                    primaryStage.setScene(aboutMeScene);  
-                    break;
-            }
-        });
-    }
+        // Deskripsi WordAzul
+        Label descriptionLabel = new Label(
+            "WordAzul adalah platform yang dapat memberikan solusi untuk teka-teki word ladder. Di Word Ladder, kalian ditantang untuk menghubungkan dua kata dengan mengubah\n"
+            + "satu huruf pada satu waktu, menciptakan rangkaian kata yang menarik dan logis. Setiap perubahan membawa kalian lebih dekat ke tujuan, menawarkan pengalaman yang\n"
+            + "mendidik dan menghibur. Dengan berbagai tingkat kesulitan, WordAzul cocok untuk membantu kalian yang mengalami kesulitan. Antarmuka yang menarik dan ramah pengguna\n"
+            + "membuat platform ini menjadi tempat yang sempurna untuk mengasah keterampilan kosa kata kalian sambil bersenang-senang.\n"
+        );
+        descriptionLabel.setPrefWidth(1500);  
+        descriptionLabel.setFont(Font.font("Monospace", FontWeight.SEMI_BOLD, 14));
+        mainLayout.getChildren().add(descriptionLabel);
 
-    private Scene createGameScene() {
-        VBox gameLayout = new VBox(10);
-        gameLayout.setPadding(new Insets(20, 20, 20, 20));
+        // How To Use
+        Label howToUseLabel = new Label("How to Use");
+        howToUseLabel.setFont(Font.font("Monospace", FontWeight.BOLD, 20));  
+        mainLayout.getChildren().add(howToUseLabel);
+
+        Label stepsLabel = new Label(
+            "- Masukkan start word dan end word yang diinginkan.\n"
+            + "- Pilih algoritma route planning yang ingin digunakan.\n"
+            + "- Klik tombol search, lalu hasilnya akan segera muncul di bagian bawah."
+        );
+        mainLayout.getChildren().add(stepsLabel);
+        stepsLabel.setFont(Font.font("Monospace", FontWeight.SEMI_BOLD, 14));
+
+        // Main Game Solver
+        HBox inputLayout = new HBox(20); 
+        inputLayout.setAlignment(Pos.CENTER);  
+
+        ImageView gameImage = new ImageView(new Image("images/bossteam.png"));
+        gameImage.setFitWidth(250);  
+        gameImage.setPreserveRatio(true);  
+        mainLayout.getChildren().add(gameImage);  
+
+        Label startWordLabel = new Label("Start Word:");
+        startWordLabel.setFont(Font.font("Monospace", FontWeight.BOLD, 16)); 
 
         TextField startWordField = new TextField();
-        startWordField.setPromptText("Enter start word");
+        startWordField.setPromptText("Enter start word"); 
+        startWordField.setPrefWidth(200);  
+        startWordField.setFont(Font.font("Monospace", FontWeight.BOLD, 14));
+
+        Label endWordLabel = new Label("End Word:");
+        endWordLabel.setFont(Font.font("Monospace", FontWeight.BOLD, 16));  
 
         TextField endWordField = new TextField();
-        endWordField.setPromptText("Enter end word");
+        endWordField.setPromptText("Enter end word"); 
+        endWordField.setPrefWidth(200);  
+        endWordField.setFont(Font.font("Monospace", FontWeight.BOLD, 14));
+
+        inputLayout.getChildren().addAll(startWordLabel, startWordField, endWordLabel, endWordField);
+        mainLayout.getChildren().add(inputLayout);
+
+        HBox algorithmLayout = new HBox(20); 
+        algorithmLayout.setAlignment(Pos.CENTER); 
+
+        Label algorithmLabel = new Label("Choose Algorithm: ");
+        algorithmLabel.setFont(Font.font("Monospace", FontWeight.BOLD, 16));  
 
         ComboBox<String> algorithmDropdown = new ComboBox<>();
-        algorithmDropdown.getItems().addAll("UCS", "GBFS", "A*");
+        algorithmDropdown.getItems().addAll("UCS", "GBFS", "A*"); 
+
+        algorithmLayout.getChildren().addAll(algorithmLabel, algorithmDropdown);
+        mainLayout.getChildren().add(algorithmLayout);
 
         Button searchButton = new Button("Search");
-        TextArea resultBox = new TextArea();
-        resultBox.setEditable(false);
+        searchButton.setFont(Font.font("Monospace", FontWeight.BOLD, 16));  
+        mainLayout.getChildren().add(searchButton);
+
+        TextArea resultBox = new TextArea();  
+        resultBox.setEditable(false);  
+        resultBox.setPrefHeight(200); 
+        resultBox.setWrapText(true);  
+        resultBox.setFont(Font.font("Monospace",  FontWeight.BOLD, 14));
+        mainLayout.getChildren().add(resultBox);
 
         searchButton.setOnAction(event -> {
             String startWord = startWordField.getText().trim();
             String endWord = endWordField.getText().trim();
-            String selectedAlgorithm = algorithmDropdown.getValue();
+            String selectedAlgorithm = algorithmDropdown.getValue();  
 
             if (startWord.isEmpty() || endWord.isEmpty()) {
-                resultBox.setText("Please enter both start and end words.");
+                resultBox.setText("Enter the start word and the end word!");
                 return;
             }
 
@@ -103,125 +124,141 @@ public class GUI extends Application {
                 return;
             }
 
-            Set<String> dictionary = loadDictionary(startWord.length());
+            Set<String> dictionary = Dictionary.loadDictionary(startWord.length());
 
             if (!dictionary.contains(startWord.toLowerCase()) || !dictionary.contains(endWord.toLowerCase())) {
                 resultBox.setText("Start word and/or end word not in dictionary.");
                 return;
             }
 
-            List<String> path = null;
-            int nodesVisited = 0;
-            long startTime = System.currentTimeMillis();
+            List<String> path = null;  
+            int nodesVisited = 0;  
+            long startTime = System.currentTimeMillis();  
 
             switch (selectedAlgorithm) {
                 case "UCS":
                     UCS ucs = new UCS(dictionary);
-                    UCS.Result ucsResult = ucs.findPath(startWord.toLowerCase(), endWord.toLowerCase());
-                    path = ucsResult.getPath();
-                    nodesVisited = ucsResult.getNodesVisited();
+                    Result ucsResult = ucs.findPath(startWord.toLowerCase(), endWord.toLowerCase());
+                    path = ucsResult.getPath(); 
+                    nodesVisited = ucsResult.getNodesVisited();  
                     break;
                 case "GBFS":
                     GBFS gbfs = new GBFS(dictionary);
-                    GBFS.Result gbfsResult = gbfs.findPath(startWord.toLowerCase(), endWord.toLowerCase());
-                    path = gbfsResult.getPath();
-                    nodesVisited = gbfsResult.getNodesVisited();
+                    Result gbfsResult = gbfs.findPath(startWord.toLowerCase(), endWord.toLowerCase());
+                    path = gbfsResult.getPath(); 
+                    nodesVisited = gbfsResult.getNodesVisited();  
                     break;
                 case "A*":
                     AStar astar = new AStar(dictionary);
-                    AStar.Result astarResult = astar.findPath(startWord.toLowerCase(), endWord.toLowerCase());
-                    path = astarResult.getPath();
-                    nodesVisited = astarResult.getNodesVisited();
+                    Result astarResult = astar.findPath(startWord.toLowerCase(), endWord.toLowerCase());
+                    path = astarResult.getPath(); 
+                    nodesVisited = astarResult.getNodesVisited();  
                     break;
                 default:
-                    resultBox.setText("Invalid algorithm choice.");
+                    resultBox.setText("Invalid Algorithm");
                     return;
             }
 
-            long endTime = System.currentTimeMillis();
+            long endTime = System.currentTimeMillis();  
             long executionTime = endTime - startTime;
 
             if (path == null || path.isEmpty()) {
-                resultBox.setText("No path solution found.");
+                resultBox.setText("No Path Found!");
                 return;
             }
 
             StringBuilder result = new StringBuilder();
-            result.append("Path: ").append(path).append("\n");
-            result.append("Nodes visited: ").append(nodesVisited).append("\n");
-            result.append("Execution time (ms): ").append(executionTime).append("\n");
+            result.append("Path:\n");  
+            for (int i = 0; i < path.size(); i++) {
+                result.append((i + 1) + ". " + path.get(i) + "\n");  
+            }
+
+            int steps = path.size() - 1;
+
+            result.append("Steps needed: " + steps + "\n");
+            result.append("Nodes visited: " + nodesVisited + "\n");
+            result.append("Execution time (ms): " + executionTime + "\n");
 
             resultBox.setText(result.toString());
         });
 
-        gameLayout.getChildren().addAll(
-            new Label("Start Word:"), startWordField,
-            new Label("End Word:"), endWordField,
-            new Label("Algorithm:"), algorithmDropdown,
-            searchButton,
-            new Label("Results:"), resultBox
+        // Penjelasan tentang algoritma
+        Label algorithmExplanationTitle = new Label("Get to Know the Algorithm");
+        algorithmExplanationTitle.setFont(Font.font("Monospace", FontWeight.BOLD, 20));  
+        Label algorithmExplanation = new Label(
+            "1. UCS: Uniform Cost Search\n"
+            + "Uniform Cost Search (UCS) adalah algoritma yang menggunakan pendekatan Breadth-First Search (BFS), namun dengan biaya yang seragam. Algoritma ini mencari jalur \n" 
+            + "dengan biaya paling rendah antara titik awal dan titik tujuan. Langkah-Langkah: \n"
+            + "- Mulai dari titik awal.\n"
+            + "- Telusuri semua tetangga dengan biaya terendah.\n" 
+            + "- Pilih node dengan biaya terendah untuk dilanjutkan.\n"
+            + "- Ulangi hingga mencapai titik tujuan.\n"
+            + "Kelebihan: Menemukan jalur dengan biaya terendah.\n"
+            + "Kekurangan: Mungkin lambat pada graf yang besar.\n"
+            + "\n 2. GBFS: Greedy Best First Search Search\n"
+            + "Greedy Best-First Search menggunakan heuristik untuk menentukan node mana yang akan dijelajahi terlebih dahulu. Algoritma ini tidak memperhitungkan biaya\n" 
+            + "keseluruhan, tetapi fokus pada node yang terlihat paling dekat dengan tujuan. Langkah-Langkah: \n"
+            + "- Mulai dari titik awal.\n"
+            + "- Gunakan heuristik untuk mengevaluasi tetangga.\n" 
+            + "- Pilih node dengan nilai heuristik terendah.\n"
+            + "- Ulangi hingga mencapai titik tujuan.\n"
+            + "Kelebihan: Cepat pada graf yang sederhana.\n"
+            + "Kekurangan: Bisa menghasilkan jalur yang tidak optimal.\n"
+            + "\n 3. Algoritma A*\n"
+            + "A* Search adalah kombinasi UCS dan Greedy Best-First Search. Algoritma ini menggunakan biaya total dari titik awal hingga tujuan, memperhitungkan biaya dan\n" 
+            + "heuristik. Langkah-langkah: \n"
+            + "- Mulai dari titik awal.\n"
+            + "- Gunakan heuristik untuk mengevaluasi tetangga.\n" 
+            + "- Pilih node dengan biaya total terendah.\n"
+            + "- Ulangi hingga mencapai titik tujuan.\n"
+            + "Kelebihan: Biasanya menemukan jalur optimal.\n"
+            + "Kekurangan: Bisa lebih lambat dari Greedy Best-First Search.\n"
         );
+        algorithmExplanation.setTextAlignment(TextAlignment.LEFT);  
+        algorithmExplanation.setFont(Font.font("Monospace", FontWeight.SEMI_BOLD, 14));
+        mainLayout.getChildren().add(algorithmExplanationTitle);
+        mainLayout.getChildren().add(algorithmExplanation);
 
-        applyGradientBackground(gameLayout);
-        return new Scene(gameLayout, 600, 400);
-    }
+        // About Me
+        Label aboutMeTitle = new Label("About Me");
+        aboutMeTitle.setFont(Font.font("Monospace", FontWeight.BOLD, 20)); 
+        mainLayout.getChildren().add(aboutMeTitle);
 
-    private Set<String> loadDictionary(int wordLength) {
-        String filePath = "dictionary/dictionary-" + wordLength + "-letter-words.txt"; 
-        Set<String> dictionary = new HashSet<>();
+        ImageView aboutMeImage = new ImageView(new Image("images/azul.png")); 
+        aboutMeImage.setFitWidth(200);  
+        aboutMeImage.setPreserveRatio(true);  
+        mainLayout.getChildren().add(aboutMeImage);
 
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                dictionary.add(line.trim().toLowerCase());
-            }
-        } catch (IOException e) {
-            System.err.println("Error loading dictionary: " + e.getMessage());
-        }
+        Label personalInfo = new Label(
+            "Nama : Marzuli Suhada M\n"
+            + "NIM  : 13522070"
+        );
+        mainLayout.getChildren().add(personalInfo);
+        personalInfo.setFont(Font.font("Monospace", FontWeight.BOLD, 14));
 
-        return dictionary;
-    }
+        Label quoteLabel = new Label(
+            "\"Computer Science isn't just about machines and code; it's about solving problems and shaping the future\" - Azul"
+        );
+        quoteLabel.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 14));  
+        mainLayout.getChildren().add(quoteLabel);
 
-    private Scene createHowToUseScene() {
-        VBox howToUseLayout = new VBox(10);
-        howToUseLayout.setPadding(new Insets(20, 20, 20, 20));
+        applyGradientBackground(mainLayout);
 
-        Label instructionLabel = new Label("How to use the game:\n- Enter start word\n- Enter end word\n- Choose an algorithm\n- Click search.");
-        howToUseLayout.getChildren().add(instructionLabel);
+        ScrollPane scrollPane = new ScrollPane(mainLayout);  
+        scrollPane.setFitToWidth(true);  
 
-        applyGradientBackground(howToUseLayout);
-        return new Scene(howToUseLayout, 600, 400);
-    }
-
-    private Scene createAlgorithmScene() {
-        VBox algorithmLayout = new VBox(10);
-        algorithmLayout.setPadding(new Insets(20, 20, 20, 20));
-
-        Label explanationLabel = new Label("Explanation about UCS, GBFS, and A* algorithms.");
-        algorithmLayout.getChildren().add(explanationLabel);
-
-        applyGradientBackground(algorithmLayout);
-        return new Scene(algorithmLayout, 600, 400);
-    }
-
-    private Scene createAboutMeScene() {
-        VBox aboutMeLayout = new VBox(10);
-        aboutMeLayout.setPadding(new Insets(20, 20, 20, 20));
-
-        Label aboutMeLabel = new Label("About the author: This game was created by Azul Suhada.");
-        aboutMeLayout.getChildren().add(aboutMeLabel);
-
-        applyGradientBackground(aboutMeLayout);
-        return new Scene(aboutMeLayout, 600, 400);
+        Scene scene = new Scene(scrollPane, 800, 600);  
+        primaryStage.setScene(scene);  
+        primaryStage.show();  
     }
 
     private void applyGradientBackground(Pane pane) {
         LinearGradient gradient = new LinearGradient(
             0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
-            new Stop(0, Color.LIGHTBLUE),
-            new Stop(1, Color.WHITE)
+            new Stop(0, Color.WHITE),
+            new Stop(1, Color.LIGHTBLUE)
         );
-        pane.setBackground(new Background(new BackgroundFill(gradient, CornerRadii.EMPTY, Insets.EMPTY)));
+        pane.setBackground(new Background(new BackgroundFill(gradient, CornerRadii.EMPTY, Insets.EMPTY)));  
     }
 
     public static void main(String[] args) {

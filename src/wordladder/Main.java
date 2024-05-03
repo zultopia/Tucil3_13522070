@@ -1,22 +1,4 @@
-/*
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.*;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
-public class Main {
-
-    public static void main(String[] args) {
-        SpringApplication.run(WordAzulApplication.class, args);
-    }
-} */
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.Scanner;
 import java.util.*;
 
 public class Main {
@@ -37,7 +19,7 @@ public class Main {
 
         // Muat kamus berdasarkan panjang kata
         int wordLength = startWord.length();
-        Set<String> dictionary = loadDictionary(wordLength);
+        Set<String> dictionary = Dictionary.loadDictionary(wordLength);
 
         if (!dictionary.contains(startWord.toLowerCase()) || !dictionary.contains(endWord.toLowerCase())) {
             System.out.println("Start word and/or end word not in dictionary.");
@@ -54,19 +36,19 @@ public class Main {
         switch (algoChoice) {
             case 1:
                 UCS ucs = new UCS(dictionary);
-                UCS.Result ucsResult = ucs.findPath(startWord.toLowerCase(), endWord.toLowerCase());
+                Result ucsResult = ucs.findPath(startWord.toLowerCase(), endWord.toLowerCase());
                 path = ucsResult.getPath();
                 nodesVisited = ucsResult.getNodesVisited();
                 break;
             case 2:
                 GBFS gbfs = new GBFS(dictionary);
-                GBFS.Result gbfsResult = gbfs.findPath(startWord.toLowerCase(), endWord.toLowerCase());
+                Result gbfsResult = gbfs.findPath(startWord.toLowerCase(), endWord.toLowerCase());
                 path = gbfsResult.getPath();
                 nodesVisited = gbfsResult.getNodesVisited();
                 break;
             case 3:
                 AStar astar = new AStar(dictionary);
-                AStar.Result astarResult = astar.findPath(startWord.toLowerCase(), endWord.toLowerCase());
+                Result astarResult = astar.findPath(startWord.toLowerCase(), endWord.toLowerCase());
                 path = astarResult.getPath();
                 nodesVisited = astarResult.getNodesVisited();
                 break;
@@ -83,24 +65,17 @@ public class Main {
             return;
         }
 
-        System.out.println("Path: " + path);
+        // Hitung jumlah langkah (panjang path - 1)
+        int steps = path.size() - 1;
+
+        // Cetak path dalam daftar dengan nomor urutan
+        System.out.println("Path:");
+        for (int i = 0; i < path.size(); i++) {
+            System.out.println((i + 1) + ". " + path.get(i));
+        }
+
+        System.out.println("Steps needed: " + steps);
         System.out.println("Nodes visited: " + nodesVisited);
         System.out.println("Execution time (ms): " + executionTime);
     }
-
-    private static Set<String> loadDictionary(int wordLength) {
-        String filePath = "dictionary/dictionary-" + wordLength + "-letter-words.txt"; 
-        Set<String> dictionary = new HashSet<>();
-        
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                dictionary.add(line.trim().toLowerCase());
-            }
-        } catch (IOException e) {
-            System.err.println("Error loading dictionary: " + e.getMessage());
-        }
-        
-        return dictionary;
-    }
-} 
+}
