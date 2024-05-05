@@ -15,34 +15,34 @@ public class UCS {
         int nodesVisited = 0;
 
         while (!queue.isEmpty()) {
-            Node current = queue.poll();
-            nodesVisited++;
+            Node current = queue.poll();  
 
+            if (visited.contains(current.getWord())) {
+                continue; 
+            }
+
+            visited.add(current.getWord());  
+            nodesVisited++;
             if (current.getWord().equals(endWord)) {
                 List<String> path = new ArrayList<>();
                 Node node = current;
                 while (node != null) {
-                    path.add(0, node.getWord());
-                    node = node.getParent();
+                    path.add(0, node.getWord());  
+                    node = node.getParent();  
                 }
-                return new Result(path, nodesVisited);
+                return new Result(path, nodesVisited);  
             }
-
-            if (visited.contains(current.getWord())) {
-                continue;
-            }
-
-            visited.add(current.getWord());
 
             List<String> neighbors = Utility.getNeighbors(current.getWord(), dictionary);
 
             for (String neighbor : neighbors) {
-                if (!visited.contains(neighbor)) {
-                    queue.add(new Node(neighbor, current.getCost() + 1, current));
+                if (!visited.contains(neighbor)) { 
+                    queue.add(new Node(neighbor, current.getCost() + 1, current)); 
                 }
             }
         }
 
+        // Jika tidak ada jalur yang ditemukan
         return new Result(Collections.emptyList(), nodesVisited);
     }
 }

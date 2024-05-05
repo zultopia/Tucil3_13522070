@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Dictionary;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -114,6 +115,11 @@ public class GUI extends Application {
             String endWord = endWordField.getText().trim();
             String selectedAlgorithm = algorithmDropdown.getValue();  
 
+            if (selectedAlgorithm == null) { 
+                resultBox.setText("No algorithm selected.");
+                return;
+            }
+
             if (startWord.isEmpty() || endWord.isEmpty()) {
                 resultBox.setText("Enter the start word and the end word!");
                 return;
@@ -124,7 +130,12 @@ public class GUI extends Application {
                 return;
             }
 
-            Set<String> dictionary = Dictionary.loadDictionary(startWord.length());
+            if (startWord.equalsIgnoreCase(endWord)) {  
+                resultBox.setText("Start word and end word are the same: " + startWord);
+                return;  
+            }
+
+            Set<String> dictionary = WordDictionary.loadDictionary(); 
 
             if (!dictionary.contains(startWord.toLowerCase()) || !dictionary.contains(endWord.toLowerCase())) {
                 resultBox.setText("Start word and/or end word not in dictionary.");
@@ -162,22 +173,21 @@ public class GUI extends Application {
             long endTime = System.currentTimeMillis();  
             long executionTime = endTime - startTime;
 
+            StringBuilder result = new StringBuilder();
+            result.append("Nodes visited: " + nodesVisited + "\n");
+            result.append("Execution time (ms): " + executionTime + "\n");
             if (path == null || path.isEmpty()) {
-                resultBox.setText("No Path Found!");
+                result.append("No Path Found!");
+                resultBox.setText(result.toString());
                 return;
             }
 
-            StringBuilder result = new StringBuilder();
+            int steps = path.size() - 1;
+            result.append("Steps needed: " + steps + "\n");
             result.append("Path:\n");  
             for (int i = 0; i < path.size(); i++) {
                 result.append((i + 1) + ". " + path.get(i) + "\n");  
             }
-
-            int steps = path.size() - 1;
-
-            result.append("Steps needed: " + steps + "\n");
-            result.append("Nodes visited: " + nodesVisited + "\n");
-            result.append("Execution time (ms): " + executionTime + "\n");
 
             resultBox.setText(result.toString());
         });

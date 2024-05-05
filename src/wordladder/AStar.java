@@ -18,6 +18,11 @@ public class AStar {
 
         while (!queue.isEmpty()) {
             Node current = queue.poll();
+
+            if (visited.contains(current.getWord())) {
+                continue;
+            }
+            
             nodesVisited++;
 
             if (current.getWord().equals(endWord)) {
@@ -28,10 +33,6 @@ public class AStar {
                     node = node.getParent();
                 }
                 return new Result(path, nodesVisited);
-            }
-
-            if (visited.contains(current.getWord())) {
-                continue;
             }
 
             visited.add(current.getWord());

@@ -8,9 +8,9 @@ public class GBFS {
     }
 
     public Result findPath(String startWord, String endWord) {
-        PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(n -> 
-            Utility.heuristic(n.getWord(), endWord)));
-        
+        PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(n ->
+                Utility.heuristic(n.getWord(), endWord)));
+
         Set<String> visited = new HashSet<>();
         queue.add(new Node(startWord, 0, null));
 
@@ -18,8 +18,13 @@ public class GBFS {
 
         while (!queue.isEmpty()) {
             Node current = queue.poll();
-            nodesVisited++;
 
+            if (visited.contains(current.getWord())) {
+                continue;
+            }
+
+            visited.add(current.getWord());
+            nodesVisited++;
             if (current.getWord().equals(endWord)) {
                 List<String> path = new ArrayList<>();
                 Node node = current;
@@ -30,21 +35,16 @@ public class GBFS {
                 return new Result(path, nodesVisited);
             }
 
-            if (visited.contains(current.getWord())) {
-                continue;
-            }
-
-            visited.add(current.getWord());
-
+            queue.clear(); 
             List<String> neighbors = Utility.getNeighbors(current.getWord(), dictionary);
-
             for (String neighbor : neighbors) {
                 if (!visited.contains(neighbor)) {
-                    queue.add(new Node(neighbor, current.getCost() + 1, current));
+                    queue.add(new Node(neighbor, 0, current));
                 }
             }
         }
 
+        // No Solution
         return new Result(Collections.emptyList(), nodesVisited);
     }
 }

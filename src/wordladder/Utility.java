@@ -18,7 +18,6 @@ public class Utility {
             }
             wordArr[i] = originalChar;
         }
-
         return neighbors;
     }
 
