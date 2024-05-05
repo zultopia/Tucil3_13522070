@@ -105,7 +105,7 @@ public class GUI extends Application {
 
         TextArea resultBox = new TextArea();  
         resultBox.setEditable(false);  
-        resultBox.setPrefHeight(200); 
+        resultBox.setPrefHeight(300); 
         resultBox.setWrapText(true);  
         resultBox.setFont(Font.font("Monospace",  FontWeight.BOLD, 14));
         mainLayout.getChildren().add(resultBox);
@@ -142,6 +142,10 @@ public class GUI extends Application {
                 return;
             }
 
+            Runtime runtime = Runtime.getRuntime();
+            runtime.gc(); 
+            long memoryBefore = runtime.totalMemory() - runtime.freeMemory();
+
             List<String> path = null;  
             int nodesVisited = 0;  
             long startTime = System.currentTimeMillis();  
@@ -173,9 +177,15 @@ public class GUI extends Application {
             long endTime = System.currentTimeMillis();  
             long executionTime = endTime - startTime;
 
+            long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+            long memoryUsed = memoryAfter - memoryBefore; 
+            double memoryUsedMB = memoryUsed / (1024.0 * 1024.0); 
+            String memoryUsedFormatted = String.format("%.2f", memoryUsedMB);
+
             StringBuilder result = new StringBuilder();
             result.append("Nodes visited: " + nodesVisited + "\n");
             result.append("Execution time (ms): " + executionTime + "\n");
+            result.append("Memory used (MB): " + memoryUsedFormatted + "\n");
             if (path == null || path.isEmpty()) {
                 result.append("No Path Found!");
                 resultBox.setText(result.toString());
