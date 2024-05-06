@@ -39,13 +39,38 @@
 
 Word ladder adalah permainan kata yang terkenal dimainkan oleh banyak orang. Ditemukan oleh Lewis Carroll pada tahun 1877, permainan ini melibatkan dua kata, yaitu start word dan end word. Pemain harus menemukan rantai kata yang menghubungkan kedua kata tersebut, di mana setiap kata dalam rantai hanya boleh berbeda satu huruf dari kata sebelumnya. Solusi optimal adalah solusi dengan jumlah kata yang dimasukkan ke rantai paling sedikit. 
 
-Program berikut mengadaptasi dari website Word Ladder namun perbedaannya program berikut menyajikan 3 algoritma pilihan dalam route planning
-setiap katanya yaitu UCS, Greedy Best-First Search dan A*. Program ini dibuat dalam bahasa java.
+Program berikut digunakan untuk mencari solusi dari permainan seperti website Word Ladder namun perbedaannya program berikut akan menyajikan 3 algoritma pilihan dalam route planning yaitu UCS, Greedy Best-First Search dan A*. Program ini dibuat dalam bahasa java.
 
-Dokumentasi lengkap tentang program dapat dilihat pada [link berikut]()
+Dokumentasi lengkap tentang program dapat dilihat pada [link berikut](https://docs.google.com/document/d/1tu7SLjJEVwF8sbB8LzhDxNwkIRlGruBIOM_aWvxfHqg/edit)
 
 ## Spesifikasi Program
 
+```
+Tucil3_13522070
+ │ 
+ ├── bin    
+ ├── doc    
+ │        └── Tucil3_13522070.pdf 
+ ├── img 
+ ├── src    
+ │       └─ wordladder
+ │       	     ├─ dictionary
+ │       	     ├─ image
+ │       	     ├─ jafafx-sdk-22.0.1
+ │       	     ├─ AStar.java
+ │       	     ├─ Dictionary.java
+ │       	     ├─ GBFS.java
+ │       	     ├─ GUI.java
+ │       	     ├─ GUI2.java
+ │       	     ├─ Main.java
+ │       	     ├─ Node.java
+ │       	     ├─ Result.java
+ │       	     ├─ UCS.java
+ │       	     ├─ Utility.java
+ │       	     └─ WordDictionary.java
+ ├── test    
+ └── README.md  
+```
 
 ## Requirements
 
