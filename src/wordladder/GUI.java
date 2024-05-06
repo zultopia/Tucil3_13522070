@@ -137,8 +137,12 @@ public class GUI extends Application {
 
             Set<String> dictionary = WordDictionary.loadDictionary(); 
 
-            if (!dictionary.contains(startWord.toLowerCase()) || !dictionary.contains(endWord.toLowerCase())) {
-                resultBox.setText("Start word and/or end word not in dictionary.");
+            if (!dictionary.contains(startWord.toLowerCase())) {
+                resultBox.setText("Start word " + startWord + " not in dictionary.");
+                return;
+
+            } else if (!dictionary.contains(endWord.toLowerCase())) {
+                resultBox.setText("End word " + endWord + " not in dictionary.");
                 return;
             }
 
