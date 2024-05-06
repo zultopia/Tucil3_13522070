@@ -95,69 +95,76 @@ To run this program, you need to have:
 To install the program with a GUI, ensure JavaFX is installed on your system. If not, you need to install JavaFX. For reference, you can use this [YouTube tutorial](https://www.youtube.com/watch?v=AubJaosfI-0). Follow these steps:
 
 1. Clone this repository:
-   ```bash
+   ```
    git clone https://github.com/zultopia/Tucil3_13522070.git
+   ```
 
 2. Navigate to the directory of the program:
-  ```bash
+  ```
   cd src/wordladder
+  ```
 
 3. Compile the program
     #### For Windows
-    ```bash
+    ```
     javac --module-path "<path_to_javafx_sdk for example C:\Java\javafx-sdk-22.0.1>/lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics AStar.java GBFS.java UCS.java WordDictionary.java Node.java Utility.java Result.java GUI.java
     ```
 
     #### For Linux/MacOS
-    ```bash
+    ```
     java --module-path "<path_to_javafx_sdk for example /Users/azulsuhada/Downloads/javafx-sdk-22.0.1>/lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics GUI
     ```
 
 4. Run the program
     ### For Windows
-    ```bash
+    ```
     javac --module-path "<path_to_javafx_sdk for example C:\Java\javafx-sdk-22.0.1>/lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics AStar.java GBFS.java UCS.java WordDictionary.java Node.java Utility.java Result.java GUI.java
     ```
 
     #### For Linux/MacOS
-    ```bash
+    ```
     java --module-path "<path_to_javafx_sdk for example /Users/azulsuhada/Downloads/javafx-sdk-22.0.1>/lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics GUI
     ```
 
 ### GUI : Java Swing
 If JavaFX still not running. Use this alternatif GUI
 1. Clone this repository:
-   ```bash
+   ```
    git clone https://github.com/zultopia/Tucil3_13522070.git
+   ```
 
 2. Navigate to the directory of the program:
-  ```bash
+  ```
   cd src/wordladder
+  ```
 
 3. Compile the program
-    ```bash
+    ```
     javac AStar.java GBFS.java UCS.java WordDictionary.java Node.java Utility.java Result.java GUI2.java
     ```
 
 4. Run the program
-    ```bash
+    ```
     java GUI2
     ```
 
 ### CLI
 To run the program with a CLI, follow these steps.
 1. Clone this repository
-    ```bash
+   ```
    git clone https://github.com/zultopia/Tucil3_13522070.git
+   ```
 
 2. Navigate to the src/wordladder directory
-    ```bash
+    ```
     cd ./Tucil3_13522070/src/wordladder
+    ```
 
 3. Compile and run the program
-    ```bash
+    ```
     javac AStar.java GBFS.java UCS.java WordDictionary.java Node.java Utility.java Result.java Main.java
     java Main
+    ```
 
 ## Screenshoot
 <!-- GUI Illustration -->
