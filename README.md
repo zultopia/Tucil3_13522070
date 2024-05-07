@@ -65,20 +65,20 @@ Tucil3_13522070
  ├── img 
  ├── src    
  │    └─ wordladder
- │       	  ├─ dictionary
- │       	  ├─ image
- │       	  ├─ jafafx-sdk-22.0.1
- │       	  ├─ AStar.java
- │       	  ├─ Dictionary.java
- │       	  ├─ GBFS.java
- │       	  ├─ GUI.java
- │       	  ├─ GUI2.java
- │       	  ├─ Main.java
- │       	  ├─ Node.java
- │       	  ├─ Result.java
- │       	  ├─ UCS.java
- │       	  ├─ Utility.java
- │       	  └─ WordDictionary.java
+ │       ├─ dictionary
+ │       ├─ image
+ │       ├─ jafafx-sdk-22.0.1
+ │       ├─ AStar.java
+ │       ├─ Dictionary.java
+ │       ├─ GBFS.java
+ │       ├─ GUI.java
+ │       ├─ GUI2.java
+ │       ├─ Main.java
+ │       ├─ Node.java
+ │       ├─ Result.java
+ │       ├─ UCS.java
+ │       ├─ Utility.java
+ │       └─ WordDictionary.java
  ├── test    
  └── README.md  
 ```
@@ -116,7 +116,7 @@ To install the program with a GUI, ensure JavaFX is installed on your system. If
     ```
 
 4. Run the program
-    ### For Windows
+    #### For Windows
     ```
     javac --module-path "<path_to_javafx_sdk for example C:\Java\javafx-sdk-22.0.1>/lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics AStar.java GBFS.java UCS.java WordDictionary.java Node.java Utility.java Result.java GUI.java
     ```
