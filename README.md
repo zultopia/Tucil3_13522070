@@ -61,24 +61,24 @@ Tucil3_13522070
  │ 
  ├── bin    
  ├── doc    
- │        └── Tucil3_13522070.pdf 
+ │    └─ Tucil3_13522070.pdf 
  ├── img 
  ├── src    
- │       └─ wordladder
- │       	     ├─ dictionary
- │       	     ├─ image
- │       	     ├─ jafafx-sdk-22.0.1
- │       	     ├─ AStar.java
- │       	     ├─ Dictionary.java
- │       	     ├─ GBFS.java
- │       	     ├─ GUI.java
- │       	     ├─ GUI2.java
- │       	     ├─ Main.java
- │       	     ├─ Node.java
- │       	     ├─ Result.java
- │       	     ├─ UCS.java
- │       	     ├─ Utility.java
- │       	     └─ WordDictionary.java
+ │    └─ wordladder
+ │       	  ├─ dictionary
+ │       	  ├─ image
+ │       	  ├─ jafafx-sdk-22.0.1
+ │       	  ├─ AStar.java
+ │       	  ├─ Dictionary.java
+ │       	  ├─ GBFS.java
+ │       	  ├─ GUI.java
+ │       	  ├─ GUI2.java
+ │       	  ├─ Main.java
+ │       	  ├─ Node.java
+ │       	  ├─ Result.java
+ │       	  ├─ UCS.java
+ │       	  ├─ Utility.java
+ │       	  └─ WordDictionary.java
  ├── test    
  └── README.md  
 ```
@@ -95,9 +95,9 @@ To run this program, you need to have:
 To install the program with a GUI, ensure JavaFX is installed on your system. If not, you need to install JavaFX. For reference, you can use this [YouTube tutorial](https://www.youtube.com/watch?v=AubJaosfI-0). Follow these steps:
 
 1. Clone this repository:
-   ```
-   git clone https://github.com/zultopia/Tucil3_13522070.git
-   ```
+  ```
+  git clone https://github.com/zultopia/Tucil3_13522070.git
+  ```
 
 2. Navigate to the directory of the program:
   ```
@@ -129,9 +129,9 @@ To install the program with a GUI, ensure JavaFX is installed on your system. If
 ### GUI : Java Swing
 If JavaFX still not running. Use this alternatif GUI
 1. Clone this repository:
-   ```
-   git clone https://github.com/zultopia/Tucil3_13522070.git
-   ```
+  ```
+  git clone https://github.com/zultopia/Tucil3_13522070.git
+  ```
 
 2. Navigate to the directory of the program:
   ```
@@ -139,34 +139,39 @@ If JavaFX still not running. Use this alternatif GUI
   ```
 
 3. Compile the program
-    ```
-    javac AStar.java GBFS.java UCS.java WordDictionary.java Node.java Utility.java Result.java GUI2.java
-    ```
+  ```
+  javac AStar.java GBFS.java UCS.java WordDictionary.java Node.java Utility.java Result.java GUI2.java
+  ```
 
 4. Run the program
-    ```
-    java GUI2
-    ```
+  ```
+  java GUI2
+  ```
 
 ### CLI
 To run the program with a CLI, follow these steps.
 1. Clone this repository
-   ```
+  ```
    git clone https://github.com/zultopia/Tucil3_13522070.git
-   ```
+  ```
 
-2. Navigate to the src/wordladder directory
-    ```
-    cd ./Tucil3_13522070/src/wordladder
-    ```
+2. Run program
+  ```
+  java -cp bin Main
+  ```
 
-3. Compile and run the program
-    ```
-    javac AStar.java GBFS.java UCS.java WordDictionary.java Node.java Utility.java Result.java Main.java
-    java Main
-    ```
+3. If there is problem, navigate to the src/wordladder directory
+  ```
+  cd ./Tucil3_13522070/src/wordladder
+  ```
 
-## Screenshoot
+4. Compile and run the program
+  ```
+  javac AStar.java GBFS.java UCS.java WordDictionary.java Node.java Utility.java Result.java Main.java
+  java Main
+  ```
+
+## Screenshots
 <!-- GUI Illustration -->
 <div align="center">
   <h2>Graphical User Interface (GUI) Tampak Atas</h2>
